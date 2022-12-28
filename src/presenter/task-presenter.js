@@ -36,8 +36,6 @@ export default class TaskPresenter {
     this.#taskEditComponent = new TaskEditView(task);
 
     this.#taskComponent.setEditClickHandler(this.#handleEditClick);
-    this.#taskComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
-    this.#taskComponent.setArchiveClickHandler(this.#handleArchiveClick);
     this.#taskEditComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#taskEditComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
@@ -97,20 +95,6 @@ export default class TaskPresenter {
 
   #handleEditClick = () => {
     this.#replaceCardToForm();
-  };
-
-  #handleFavoriteClick = () => {
-    this.#changeData(UserAction.UPDATE_TASK, UpdateType.MINOR, {
-      ...this.#task,
-      isFavorite: !this.#task.isFavorite,
-    });
-  };
-
-  #handleArchiveClick = () => {
-    this.#changeData(UserAction.UPDATE_TASK, UpdateType.MINOR, {
-      ...this.#task,
-      isArchive: !this.#task.isArchive,
-    });
   };
 
   #handleFormSubmit = (update) => {

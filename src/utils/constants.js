@@ -13,5 +13,6 @@ export const UpdateType = {
 };
 
 export const MenuItem = {
+  TASKS: 'TASKS',
   ADD_NEW_TASK: 'ADD_NEW_TASK',
 };

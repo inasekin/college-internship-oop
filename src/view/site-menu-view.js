@@ -13,6 +13,15 @@ const createSiteMenuTemplate = () =>
     <label for="control__new-task" class="control__button"
       >Новая задача</label
     >
+        <input
+      type="radio"
+      name="control"
+      id="control__task"
+      class="control__input visually-hidden"
+      value="${MenuItem.TASKS}"
+      checked
+    />
+    <label for="control__task" class="control__label" style="display: none;">ЗАДАЧКИ</label>
   </div>`;
 
 export default class SiteMenuView extends AbstractView {

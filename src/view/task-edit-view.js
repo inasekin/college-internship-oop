@@ -83,8 +83,6 @@ const createTaskEditTemplate = (data) => {
           <div class="card__details">
             <div class="card__dates">
               ${dateTemplate}
-
-              ${repeatingTemplate}
             </div>
           </div>
 
@@ -122,8 +120,6 @@ export default class TaskEditView extends SmartView {
     return createTaskEditTemplate(this._data);
   }
 
-  // Перегружаем метод родителя removeElement,
-  // чтобы при удалении удалялся более не нужный календарь
   removeElement = () => {
     super.removeElement();
 
@@ -160,8 +156,6 @@ export default class TaskEditView extends SmartView {
 
   #setDatepicker = () => {
     if (this._data.isDueDate) {
-      // flatpickr есть смысл инициализировать только в случае,
-      // если поле выбора даты доступно для заполнения
       this.#datepicker = flatpickr(this.element.querySelector('.card__date'), {
         dateFormat: 'j F',
         defaultDate: this._data.dueDate,
@@ -175,9 +169,6 @@ export default class TaskEditView extends SmartView {
       .querySelector('.card__date-deadline-toggle')
       .addEventListener('click', this.#dueDateToggleHandler);
     this.element
-      .querySelector('.card__repeat-toggle')
-      .addEventListener('click', this.#repeatingToggleHandler);
-    this.element
       .querySelector('.card__text')
       .addEventListener('input', this.#descriptionInputHandler);
 
@@ -190,19 +181,6 @@ export default class TaskEditView extends SmartView {
     evt.preventDefault();
     this.updateData({
       isDueDate: !this._data.isDueDate,
-      // Логика следующая: если выбор даты нужно показать,
-      // то есть когда "!this._data.isDueDate === true",
-      // тогда isRepeating должно быть строго false.
-      isRepeating: !this._data.isDueDate ? false : this._data.isRepeating,
-    });
-  };
-
-  #repeatingToggleHandler = (evt) => {
-    evt.preventDefault();
-    this.updateData({
-      isRepeating: !this._data.isRepeating,
-      // Аналогично, но наоборот, для повторения
-      isDueDate: !this._data.isRepeating ? false : this._data.isDueDate,
     });
   };
 
